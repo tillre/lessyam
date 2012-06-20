@@ -1,4 +1,4 @@
-less-yam
+lessyam
 ========
 yet another less css middleware for connect or union
 
