@@ -1,17 +1,16 @@
-lessyam
-========
+# lessyam
 yet another less css middleware for connect or union
 
-usage
-=====
+## usage
+lessyam(path, options), see source for options
 
-   var lessyam = require('lessyam')
+    var lessyam = require('lessyam')
 
-express(connect):
+**express(connect):**
 
     app.use(lessyam(lessDir))
 
-flatiron:
+**flatiron:**
 
     app.use(flatiron.plugins.http, {
       before: [
@@ -19,19 +18,12 @@ flatiron:
       ]
     }
 
-lessyam(path, options)
-path - path to the folder containing the less files
-options - see source file for options
-    
 
-license
-=======
+## License
 MIT License
 
-install with npm
-================
+## Install with npm
     npm install lessyam
 
-run tests
-=========
+## Run tests
     npm test
