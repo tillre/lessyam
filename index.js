@@ -83,7 +83,7 @@ module.exports = function(srcDir, options) {
         if (err) {
           err.file = file;
           err.toString = function() {
-            return '/* less error: ' + this.message + '\n' + '   parsing: ' + this.file + ' */';
+            return 'less error: ' + this.message + '\n' + '   parsing: ' + this.file;
           };
           less.writeError(err);
           return callback(err);
