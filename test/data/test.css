@@ -1,0 +1,11 @@
+.foo {
+  border: 1px solid #0000ff;
+}
+.bar {
+  background-color: #00ff00;
+}
+body {
+  margin: 0 auto;
+  background-color: #000000;
+  color: #eeeeee;
+}
