@@ -13,9 +13,8 @@ var less = require('less'),
 //
 // @srcDir folder with less files
 // @options {
-//   debug:Boolean - show debug messages
+//   debug:Boolean - recompile css on every request
 //   lessOptions:Object - options to pass to the less compiler
-//   noFileCheck:Boolean - dont check file for changes
 // }
 //
 module.exports = function(srcDir, options) {
@@ -50,17 +49,12 @@ module.exports = function(srcDir, options) {
   };
 
   function render(file, callback) {
-    if (options.noFileCheck && cache[file]) {
+    // only use cache in non debug env
+    if (!options.debug && cache[file]) {
       callback(null, cache[file]);
     }
-    // check if the file is in the cache and/or modified
-    // compile if needed
     fs.stat(file, function(err, stats) {
-      if (err) return callback(err, null);
-      var c = cache[file];
-      if (c && stats.mtime.getTime() <= c.mtime.getTime()) {
-        return callback(null, c);
-      }
+      if (err) return callback(err);
       renderLess(file, function(err, css) {
         if (err) return callback(err);
         var c = {
@@ -92,4 +86,26 @@ module.exports = function(srcDir, options) {
       });
     });
   }
+};
+
+
+//
+// overwrite the importer function of less
+// @paths will never contain more than 1 element
+//
+less.Parser.importer = function (file, paths, callback, env) {
+  if (!paths || paths.length === 0) return callback(new Error('no paths defined'));
+  var pathname = path.join(paths[0], file);
+  fs.stat(pathname, function(err, stats) {
+    if (err) return callback(err);
+    fs.readFile(pathname, 'utf8', function(e, data) {
+      if (e) return callback(e);
+      new(less.Parser)({
+        paths: [path.dirname(pathname)].concat(paths),
+        filename: pathname
+      }).parse(data, function (e, root) {
+        callback(e, root, data);
+      });
+    });
+  });
 };

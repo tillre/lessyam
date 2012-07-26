@@ -7,7 +7,7 @@ var vows = require('vows'),
     cssFile = path.join(srcDir, 'test.css');
 
 
-vows.describe('less css').addBatch({
+vows.describe('lessyam').addBatch({
   "The lessyam module": {
     topic: lessyam,
     "should be a function": function(topic) {
