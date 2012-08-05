@@ -13,8 +13,8 @@ var less = require('less'),
 //
 // @srcDir folder with less files
 // @options {
-//   debug:Boolean - recompile css on every request
-//   lessOptions:Object - options to pass to the less compiler
+//   @recompile recompile css on every request
+//   @lessOptions options to pass to the less compiler
 // }
 //
 module.exports = function(srcDir, options) {
@@ -49,8 +49,7 @@ module.exports = function(srcDir, options) {
   };
 
   function render(file, callback) {
-    // only use cache in non debug env
-    if (!options.debug && cache[file]) {
+    if (!options.recompile && cache[file]) {
       callback(null, cache[file]);
     }
     fs.stat(file, function(err, stats) {

@@ -2,7 +2,7 @@
   "author": "skoni",
   "name": "lessyam",
   "description": "less css middleware for connect or union",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/skoni/lessyam",
   "repository": {
     "url": "git://github.com/skoni/lessyam.git"
